@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maykr"
+version = "0.1.0"
+dependencies = [
+    "typer"
+]
+
+[project.scripts]
+maykr = "maykr.main:app"
