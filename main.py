@@ -38,6 +38,12 @@ class Maykr:
         ]
         return self.fake.random_element(countries)
  
+    def pick_random_subcountry(self) -> str:
+        subcountries = [
+            "England and Wales",
+        ]
+        return self.fake.random_element(subcountries)
+
     def write_titles(self):
         self.sheet["A1"] = "Entity Code"
         self.sheet["B1"] = "Entity Name"
@@ -64,7 +70,7 @@ class Maykr:
             self.sheet[f"H{row}"] = self.fake.street_address()
             self.sheet[f"I{row}"] = self.fake.secondary_address()
             self.sheet[f"J{row}"] = self.fake.city()
-            self.sheet[f"K{row}"] = "England and Wales"
+            self.sheet[f"K{row}"] = self.pick_random_subcountry()
             self.sheet[f"L{row}"] = self.fake.postcode()
 
     def generate_files(self):
