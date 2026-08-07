@@ -45,10 +45,10 @@ Example configuration:
 Generate test files:
 
 ```bash
-maykr run
+maykr create
 ```
 
-This command creates **5 test files** in:
+This command creates the files in:
 
 ```text
 $output_directory/generated/
