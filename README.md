@@ -34,7 +34,8 @@ Example configuration:
 
 ```json
 {
-    "output_directory": "~/Documents/test_files"
+    "output_directory": "~/Documents/test_files",
+    "number_of_files": 10
 }
 ```
 
