@@ -8,7 +8,7 @@ from pathlib import Path
 
 class Maykr:
 
-    number_of_files_to_generate = 5
+    number_of_files_to_generate = 10
     number_of_companies = 35
 
     def __init__(self):
@@ -18,6 +18,7 @@ class Maykr:
         self.fake = Faker()
         self.utils = utils.Utils()
         self.config = Config()
+        self.number_of_files_to_generate = self.config.load_config().get("number_of_files_to_generate", 10)
 
     def new_file_name(self) -> str:
         return f"test_file_{self.fake.unique.random_int(min=10000000, max=99999999)}.xlsx"

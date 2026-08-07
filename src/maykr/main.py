@@ -12,7 +12,7 @@ class Main:
         print("not yet implemented")
 
     @app.command()
-    def run() -> None:
+    def create() -> None:
         maykr = Maykr()
         maykr.generate_files()
 
