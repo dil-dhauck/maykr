@@ -8,6 +8,8 @@ Install the required dependency:
 
 ```bash
 pip install typer
+pip install openpyxl
+pip install faker
 ```
 
 Than simply install maykr:

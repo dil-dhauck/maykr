@@ -45,7 +45,7 @@ class Maykr:
             self.sheet[f"D{row}"] = self.utils.pick_random(variables.COMPANY_STATUSES)
             self.sheet[f"E{row}"] = self.fake.unique.random_int(min=10000000, max=99999999)
             self.sheet[f"F{row}"] = self.fake.date_between(start_date="-10y", end_date="today")
-            self.sheet[f"G{row}"] = self.utils.pick_random(variables.CONTRIES)
+            self.sheet[f"G{row}"] = self.utils.pick_random(variables.COUNTRIES)
             self.sheet[f"H{row}"] = self.fake.street_address()
             self.sheet[f"I{row}"] = self.fake.secondary_address()
             self.sheet[f"J{row}"] = self.fake.city()

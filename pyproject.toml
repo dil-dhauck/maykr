@@ -6,7 +6,9 @@ build-backend = "setuptools.build_meta"
 name = "maykr"
 version = "0.1.0"
 dependencies = [
-    "typer"
+    "typer",
+    "openpyxl",
+    "faker"
 ]
 
 [project.scripts]
