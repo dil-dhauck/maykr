@@ -7,10 +7,6 @@ from pathlib import Path
 
 class Maykr:
 
-    number_of_files_to_generate = 10
-    number_of_companies = 35
-    number_of_addresses = 10
-
     def __init__(self):
         self.template = Path(__file__).parent / "assets" / "template.xlsx"
         self.workbook = load_workbook(self.template)
@@ -19,78 +15,65 @@ class Maykr:
         self.fake = Faker()
         self.utils = utils.Utils()
         self.config = Config()
-        self.number_of_files_to_generate = self.config.load_config().get("number_of_files_to_generate", 10)
-        self.number_of_addresses = self.config.load_config().get("number_of_addresses", 10)
 
     def new_file_name(self) -> str:
         return f"test_file_{self.fake.unique.random_int(min=10000000, max=99999999)}.xlsx"
 
-    def write_headers(self): #TODO check this
-        self.company_data_sheet["A1"] = "Company ID"
-        self.company_data_sheet["B1"] = "Company Name"
-        self.company_data_sheet["C1"] = "Company Type"
-        self.company_data_sheet["D1"] = "Company Status"
-        self.company_data_sheet["E1"] = "Company Registration Number"
-        self.company_data_sheet["F1"] = "Company Incorporation Date"
-        self.company_data_sheet["G1"] = "Company Country"
-        self.company_data_sheet["H1"] = "Reg. Office line 1"
-        self.company_data_sheet["I1"] = "Reg. Office line 2"
-        self.company_data_sheet["J1"] = "Reg. Office Post Town"
-        self.company_data_sheet["K1"] = "Region"
-        self.company_data_sheet["L1"] = "Reg. Office Postcode"
-        self.company_data_sheet["M1"] = "Company Email"
-        self.company_data_sheet["N1"] = "Date of Dissolved"
-        self.company_data_sheet["O1"] = "Event date"
-        self.company_data_sheet["P1"] = "Is Live"
-        self.company_data_sheet["Q1"] = "Security Group"
-        self.addresses_sheet["A1"] = "Country"
-        self.addresses_sheet["B1"] = "Address Line 1"
-        self.addresses_sheet["C1"] = "Address Line 2"
-        self.addresses_sheet["D1"] = "Address Line 3"
-        self.addresses_sheet["E1"] = "Post Town / City"
-        self.addresses_sheet["F1"] = "Region / State"
-        self.addresses_sheet["G1"] = "Post Code / ZIP"
-        self.addresses_sheet["H1"] = "Quickref"
+    def write_company_data(self) -> None:
+        data = {
+            "A": ("Company ID", lambda: self.fake.unique.random_int(min=100000, max=999999)),
+            "B": ("Company Name", lambda: self.fake.company()),
+            "C": ("Company Type", lambda: self.utils.pick_random(variables.COMPANY_TYPES)),
+            "D": ("Company Status", lambda: self.utils.pick_random(variables.COMPANY_STATUSES)),
+            "E": ("Company Registration Number", lambda: self.fake.unique.random_int(min=10000000, max=99999999)),
+            "F": ("Company Incorporation Date", lambda: self.fake.date_between(start_date="-10y", end_date="today")),
+            "G": ("Company Country", lambda: self.utils.pick_random(variables.COUNTRIES)),
+            "H": ("Reg. Office line 1", lambda: self.fake.street_address()),
+            "I": ("Reg. Office line 2", lambda: self.fake.secondary_address()),
+            "J": ("Reg. Office Post Town", lambda: self.fake.city()),
+            "K": ("Region", lambda: self.utils.pick_random(variables.SUBCOUNTRIES)),
+            "L": ("Reg. Office Postcode", lambda: self.fake.postcode()),
+            "M": ("Company Email", lambda: self.fake.email()),
+            "N": ("Date of Dissolved", lambda: self.fake.date()),
+            "O": ("Event date", lambda: self.fake.date()),
+            "P": ("Is Live", lambda: self.fake.boolean()),
+            "Q": ("Security Group", lambda: self.utils.pick_random(variables.DEQA_SECURITY_GROUPS)),
+            "R": ("Additional Info", lambda: self.fake.text(max_nb_chars=50)),
+        }
 
-    def write_company_data(self):
-        for row in range(2, self.number_of_companies):
-            self.company_data_sheet[f"A{row}"] = self.fake.unique.random_int(min=100000, max=999999)
-            self.company_data_sheet[f"B{row}"] = self.fake.company()
-            self.company_data_sheet[f"C{row}"] = self.utils.pick_random(variables.COMPANY_TYPES)
-            self.company_data_sheet[f"D{row}"] = self.utils.pick_random(variables.COMPANY_STATUSES)
-            self.company_data_sheet[f"E{row}"] = self.fake.unique.random_int(min=10000000, max=99999999)
-            self.company_data_sheet[f"F{row}"] = self.fake.date_between(start_date="-10y", end_date="today")
-            self.company_data_sheet[f"G{row}"] = self.utils.pick_random(variables.COUNTRIES)
-            self.company_data_sheet[f"H{row}"] = self.fake.street_address()
-            self.company_data_sheet[f"I{row}"] = self.fake.secondary_address()
-            self.company_data_sheet[f"J{row}"] = self.fake.city()
-            self.company_data_sheet[f"K{row}"] = self.utils.pick_random(variables.SUBCOUNTRIES)
-            self.company_data_sheet[f"L{row}"] = self.fake.postcode()
-            self.company_data_sheet[f"M{row}"] = self.fake.email()
-            self.company_data_sheet[f"N{row}"] = self.fake.date()
-            self.company_data_sheet[f"O{row}"] = self.fake.date()
-            self.company_data_sheet[f"P{row}"] = self.fake.boolean()
-            self.company_data_sheet[f"Q{row}"] = self.utils.pick_random(variables.DEQA_SECURITY_GROUPS)
+        for column, (header, generator) in data.items():
+            self.company_data_sheet[f"{column}1"] = header
+            for row in range(2, self.config.number_of_companies + 2):
+                self.company_data_sheet[f"{column}{row}"] = generator()
 
     def write_addresses(self):
-        for row in range(2, self.number_of_addresses):
-            self.addresses_sheet[f"A{row}"] = self.utils.pick_random(variables.COUNTRIES)
-            self.addresses_sheet[f"B{row}"] = self.fake.street_address()
-            self.addresses_sheet[f"C{row}"] = self.fake.street_address()
-            self.addresses_sheet[f"D{row}"] = self.fake.street_address()
-            self.addresses_sheet[f"E{row}"] = self.fake.city()
-            self.addresses_sheet[f"F{row}"] = self.fake.state()
-            self.addresses_sheet[f"G{row}"] = self.fake.postcode()
+        data = {
+            "A": ("State", lambda: self.utils.pick_random(variables.SUBCOUNTRIES)),
+            "B": ("Country", lambda: self.utils.pick_random(variables.COUNTRIES)),
+            "C": ("Shared", lambda: self.fake.boolean()),
+            "D": ("Latitude", lambda: self.fake.latitude()),
+            "E": ("Longitude", lambda: self.fake.longitude()),
+            "F": ("Postcode", lambda: self.fake.postcode()),
+            "G": ("Town/City", lambda: self.fake.city()),
+            "H": ("Reference Number", lambda: self.fake.unique.random_int(min=100000, max=999999)),
+            "I": ("Street Address", lambda: self.fake.street_address()),
+            "J": ("Secondary Address", lambda: self.fake.street_address()),
+            "K": ("Third Address", lambda: self.fake.street_address()),
+            "L": ("Additional Info", lambda: self.utils.pick_random([self.fake.text(max_nb_chars=50)," "]))
+            }
 
+        for column, (header, generator) in data.items():
+            self.addresses_sheet[f"{column}1"] = header
+            for row in range(2, self.config.number_of_addresses + 2):
+                self.addresses_sheet[f"{column}{row}"] = generator()
 
-    def generate_files(self):
+    def generate_files(self) -> None:
         config = self.config.load_config()
 
         output_directory = Path(config["output_directory"]).expanduser() / "maykr"
         output_directory.mkdir(parents=True, exist_ok=True)
 
-        for _ in range(self.number_of_files_to_generate):
-            self.write_headers()
+        for _ in range(self.config.number_of_files_to_generate):
             self.write_company_data()
             self.write_addresses()
 

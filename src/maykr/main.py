@@ -16,6 +16,7 @@ class Main:
         maykr = Maykr()
         maykr.generate_files()
 
+
 if __name__ == "__main__":
     main = Main()
     app()

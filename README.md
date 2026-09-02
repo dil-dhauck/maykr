@@ -1,6 +1,7 @@
 # Maykr
 
-Generate realistic test Excel files for development and testing.
+Generate realistic test Excel files for development and testing the AI assistant made by Quake team.
+
 
 ## Installation
 
