@@ -37,7 +37,7 @@ class Maykr:
             "N": ("Date of Dissolved", lambda: self.fake.date()),
             "O": ("Event date", lambda: self.fake.date()),
             "P": ("Is Live", lambda: self.fake.boolean()),
-            "Q": ("Security Group", lambda: self.utils.pick_random(variables.DEQA_SECURITY_GROUPS)),
+            "Q": ("Security Group", lambda: self.utils.pick_random([self.utils.pick_random(variables.DEQA_SECURITY_GROUPS), " "])),
             "R": ("Additional Info", lambda: self.fake.text(max_nb_chars=50)),
         }
 
@@ -48,17 +48,17 @@ class Maykr:
 
     def write_addresses(self):
         data = {
-            "A": ("State", lambda: self.utils.pick_random(variables.SUBCOUNTRIES)),
+            "A": ("Region / State", lambda: self.utils.pick_random([self.utils.pick_random(variables.SUBCOUNTRIES), " "])),
             "B": ("Country", lambda: self.utils.pick_random(variables.COUNTRIES)),
-            "C": ("Shared", lambda: self.fake.boolean()),
-            "D": ("Latitude", lambda: self.fake.latitude()),
-            "E": ("Longitude", lambda: self.fake.longitude()),
+            "C": ("Shared", lambda: self.utils.pick_random([self.fake.boolean(), " "])),
+            "D": ("Latitude", lambda: self.utils.pick_random([self.fake.latitude(), " "])),
+            "E": ("Longitude", lambda: self.utils.pick_random([self.fake.longitude(), " "])),
             "F": ("Postcode", lambda: self.fake.postcode()),
             "G": ("Town/City", lambda: self.fake.city()),
-            "H": ("Reference Number", lambda: self.fake.unique.random_int(min=100000, max=999999)),
+            "H": ("Reference Number", lambda: self.utils.pick_random([self.fake.unique.random_int(min=100000, max=999999), " "])),
             "I": ("Street Address", lambda: self.fake.street_address()),
-            "J": ("Secondary Address", lambda: self.fake.street_address()),
-            "K": ("Third Address", lambda: self.fake.street_address()),
+            "J": ("Secondary Address", lambda: self.utils.pick_random([self.fake.street_address(), " "])),
+            "K": ("Third Address", lambda: self.utils.pick_random([self.fake.street_address(), " "])),
             "L": ("Additional Info", lambda: self.utils.pick_random([self.fake.text(max_nb_chars=50)," "]))
             }
 
