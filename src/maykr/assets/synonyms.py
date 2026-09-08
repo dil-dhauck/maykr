@@ -1,193 +1,161 @@
 #Synonyms for headers
 
 COMPANY_ID_HEADERS = [
-    "Company ID",
-    "Company Identifier",
-    "Company No.",
-    "Company Number",
-    "Company Code",
-    "Company Key",
-    "Co. ID",
-    "Corp ID",
-    "Corporate ID",
-    "Corporate Number",
-    "Organization ID",
-    "Organization Number",
-    "Org ID",
-    "Organization Code",
-    "Business ID",
-    "Business Identifier",
+    "Entity Code",
     "Entity ID",
-    "Entity Number",
-    "Legal Entity ID",
-    "Legal Entity Number",
-    "Registry ID",
-    "Registration Number",
-    "Company Ref",
-    "Company Reference ID",
-    "Company UUID",
+    "Entity Identifier",
+    "Company Code",
+    "Company ID",
+    "Org Code",
+    "Organisation Code",
+    "Client Entity ID",
+    "Internal ID",
 ]
 
 COMPANY_NAME_HEADERS = [
-    "Company Name",
-    "Company",
-    "Name",
+    "Entity Name",
+    "Org Name",
     "Organisation Name",
     "Organization Name",
-    "Co. Name",
-    "Business Name",
-    "Trading Name",
-    "Entity Name",
+    "Company Name",
     "Legal Name",
+    "Legal Entity Name",
+    "Subsidiary Name",
+    "Business Name",
 ]
 
 COMPANY_TYPE_HEADERS = [
     "Company Type",
-    "Type",
-    "Business Type",
-    "Entity Type",
     "Legal Form",
+    "Entity Type",
+    "Legal Type",
     "Company Category",
-    "Organisation Type",
-    "Organization Type",
+    "Company Legal Type",
 ]
 
 COMPANY_STATUS_HEADERS = [
     "Company Status",
+    "Entity Status",
+    "Operating Status",
     "Status",
-    "Trading Status",
-    "Operational Status",
     "Registration Status",
-    "Active Status",
-    "Lifecycle Status",
 ]
 
-COMPANY_REGISTRATION_NUMBER_HEADERS = [
-    "Company Registration Number",
+COMPANY_REGISTRATION_HEADERS = [
     "Registration Number",
-    "Reg. No.",
-    "Registration No.",
-    "Company Reg. No.",
-    "CRN",
-    "Registry Number",
-    "Registration ID",
+    "Registration No",
+    "Reg No",
+    "Reg #",
+    "Company Reg No",
+    "Business Registration Number",
+    "Company Registration",
+    "State Registration",
+    "Company Number",
 ]
 
 COMPANY_INCORPORATION_DATE_HEADERS = [
-    "Company Incorporation Date",
     "Incorporation Date",
     "Date of Incorporation",
-    "Incorp. Date",
-    "Founded",
-    "Establishment Date",
-    "Registration Date",
+    "Incorp Date",
+    "Incorp Dt",
+    "Formation Date",
+    "Date of Formation",
+    "Company Start Date",
 ]
 
-COUNTRY_HEADERS = [
-    "Company Country",
-    "Country",
-    "Country of Incorporation",
-    "Registered Country",
+COUNTRY_CODE_HEADERS = [
+    "Country Code",
+    "Registration Country Code",
+    "Domicile Code",
     "Jurisdiction",
-    "Country/Region",
 ]
 
 REG_OFFICE_LINE_1_HEADERS = [
-    "Registered Office Line 1",
-    "Reg. Office Line 1",
-    "Registered Address 1",
-    "Reg. Office Address 1",
+    "Address 1",
     "Address Line 1",
-    "Street Address 1",
+    "Street",
+    "Street 1",
+    "Address Line One",
 ]
 
 REG_OFFICE_LINE_2_HEADERS = [
-    "Registered Office Line 2",
-    "Reg. Office Line 2",
-    "Registered Address 2",
-    "Reg. Office Address 2",
+    "Address 2",
     "Address Line 2",
-    "Street Address 2",
+    "Street 2",
+    "Suite",
+    "Unit",
+    "Floor",
 ]
 
 REG_OFFICE_POST_TOWN_HEADERS = [
-    "Reg. Office Post Town",
-    "Registered Office Post Town",
-    "Post Town",
-    "Town",
     "City",
-    "Registered City",
+    "Town",
+    "Post Town",
     "Locality",
 ]
 
 AREA_HEADERS = [
-    "Region",
-    "State/Province",
     "State",
+    "Region",
     "Province",
     "County",
-    "Region/State",
-    "Administrative Area",
+    "State/Province",
+    "State/Region",
 ]
 
 REG_OFFICE_POSTCODE_HEADERS = [
-    "Reg. Office Postcode",
-    "Registered Office Postcode",
+    "Post Code",
     "Postcode",
-    "Postal Code",
     "ZIP",
-    "ZIP Code",
-    "Postal/ZIP",
+    "Zip Code",
+    "Postal Code",
 ]
 
+#These are client examples, but from the "addresses" sheet
 COMPANY_EMAIL_HEADERS = [
-    "Company Email",
     "Email",
+    "Email Address",
     "Contact Email",
-    "Corporate Email",
-    "Company Contact Email",
-    "Main Email",
-    "Support Email",
 ]
 
 DATE_OF_DISSOLVED_HEADERS = [
-    "Date of Dissolution",
-    "Date of Dissolved",
-    "Dissolution Date",
+    "Dissolved Date",
     "Date Dissolved",
-    "Closed Date",
-    "Dissolved On",
+    "Strike-off Date",
+    "De-registration Date",
+    "Termination Date",
+    "Closure Date",
 ]
 
+#These are client examples, but from the "appointments" sheet
 EVENT_DATE_HEADERS = [
     "Event Date",
-    "Date of Event",
-    "Record Date",
-    "Event Timestamp",
+    "Appointment Date",
     "Effective Date",
-    "Date",
+    "Date Appointed",
 ]
 
+#These are NOT client examples, couldnt find any.
 IS_LIVE_HEADERS = [
-    "Is Live",
-    "Live",
-    "Is Active",
-    "Active",
-    "Currently Active",
-    "Live Flag",
-    "Active Flag",
+    "Historical",
+    "Historical Record",
+    "Inactive Flag",
+    "Archive?",
+    "Live/Dead",
+    "Is Active?",
 ]
 
 SECURITY_GROUP_HEADERS = [
-    "Security Group",
-    "Access Group",
-    "Permissions Group",
-    "Security Tier",
-    "Security Level",
-    "Role Group",
-    "Access Role",
+    "Grouping",
+    "Group Code",
+    "Group",
+    "Portfolio",
+    "Cluster",
+    "BU Code",
+    "Division Code",
 ]
 
+#I came up with this header, for testing non-valid headers
 ADDITIONAL_INFO_HEADERS = [
     "Additional Info",
     "Additional Information",
@@ -198,13 +166,15 @@ ADDITIONAL_INFO_HEADERS = [
     "Metadata",
 ]
 
-
 #New Addresses
-ADDRESS_TYPE_HEADERS = [
-    "Shared",
-    "Is Shared",
+ADDRESS_IS_GLOBAL = [
+    "Is Global",
+    "Global Address?",
+    "Shared Address?",
+    "Common Address?",
 ]
 
+#This is NOT client examples, could not find any.
 LATITUDE_HEADERS = [
     "Latitude",
     "Lat",
@@ -214,6 +184,7 @@ LATITUDE_HEADERS = [
     "Latitudinal",
 ]
 
+#This is NOT client examples, could not find any.
 LONGITUDE_HEADERS = [
     "Longitude",
     "Lon",
@@ -225,26 +196,22 @@ LONGITUDE_HEADERS = [
 ]
 
 POSTCODE_HEADERS = [
-    "Postcode",
-    "Postal Code",
-    "ZIP",
-    "ZIP Code",
-    "Postal/ZIP",
     "Post Code",
-    "Postal Code/ZIP",
+    "Postcode",
+    "ZIP",
+    "Zip Code",
+    "Postal Code",
 ]
 
 TOWN_CITY_HEADERS = [
-    "Town/City",
-    "Town",
     "City",
-    "Municipality",
+    "Town",
+    "Post Town",
     "Locality",
-    "City/Town",
-    "Place",
 ]
 
-REFERENCE_NUMBER_HEADERS = [
+#This is NOT client examples, could not find any.
+ADDRESS_REFERENCE_NUMBER_HEADERS = [
     "Reference Number",
     "Ref No.",
     "Ref#",
@@ -254,32 +221,27 @@ REFERENCE_NUMBER_HEADERS = [
     "Reference Code",
 ]
 
+
 STREET_ADDRESS_HEADERS = [
-    "Street Address",
-    "Address Line 1",
-    "Address",
-    "Primary Address",
-    "Street",
-    "Street Line 1",
     "Address 1",
+    "Address Line 1",
+    "Street",
+    "Street 1",
+    "Address Line One",
 ]
 
 SECONDARY_ADDRESS_HEADERS = [
-    "Secondary Address",
-    "Address Line 2",
-    "Address Line 2 / Apt",
     "Address 2",
-    "Apartment/Suite",
+    "Address Line 2",
+    "Street 2",
+    "Suite",
     "Unit",
-    "PO Box",
-    "Street Line 2",
+    "Floor",
 ]
 
 THIRD_ADDRESS_HEADERS = [
-    "Third Address",
-    "Address Line 3",
     "Address 3",
-    "Additional Address",
+    "Address Line 3",
     "Building",
-    "Street Line 3",
+    "Block",
 ]
