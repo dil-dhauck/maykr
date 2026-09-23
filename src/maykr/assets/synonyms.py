@@ -136,7 +136,7 @@ EVENT_DATE_HEADERS = [
 ]
 
 #These are NOT client examples, couldnt find any.
-IS_LIVE_HEADERS = [
+IS_HISTORIC = [
     "Historical",
     "Historical Record",
     "Inactive Flag",
@@ -165,6 +165,27 @@ ADDITIONAL_INFO_HEADERS = [
     "Extra Info",
     "Metadata",
 ]
+
+#connected addresses
+COMPANY_ADDRESS1_HEADERS = [
+        "Reg. Office Address 1",
+        "Registered Office Address 1",
+        ]
+
+COMPANY_ADDRESS2_HEADERS = [
+        "Reg. Office Address 2",
+        "Registered Office Address 2",
+        ]
+
+COMPANY_REG_OFFICE_POST_TOWN_HEADERS = [
+        "Reg. Office Post Town",
+        "Registered Office Post Town",
+        ]
+
+REG_OFFICE_POST_CODE = [
+        "Reg. Office Post Code",
+        "Registered Office Post Code",
+        ]
 
 #New Addresses
 ADDRESS_IS_GLOBAL = [
@@ -244,4 +265,12 @@ THIRD_ADDRESS_HEADERS = [
     "Address Line 3",
     "Building",
     "Block",
+]
+
+ADDRESS_TYPE_HEADERS = [
+    "Address Type",
+    "Address Role",
+    "Usage",
+    "Address Category",
+    "Address Purpose"
 ]
