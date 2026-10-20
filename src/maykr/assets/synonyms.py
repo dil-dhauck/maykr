@@ -12,6 +12,18 @@ COMPANY_ID_HEADERS = [
     "Internal ID",
 ]
 
+COMPANY_ID_HEADERS = [
+    "Entity Code",
+    "Entity ID",
+    "Entity Identifier",
+    "Company Code",
+    "Company ID",
+    "Org Code",
+    "Organisation Code",
+    "Client Entity ID",
+    "Internal ID",
+]
+
 COMPANY_NAME_HEADERS = [
     "Entity Name",
     "Org Name",
@@ -38,7 +50,7 @@ COMPANY_STATUS_HEADERS = [
     "Entity Status",
     "Operating Status",
     "Status",
-    "Registration Status",
+
 ]
 
 COMPANY_REGISTRATION_HEADERS = [
@@ -146,6 +158,12 @@ IS_HISTORIC = [
 ]
 
 SECURITY_GROUP_HEADERS = [
+    "Security Group",
+    "Access Group",
+    "Confidentiality Group"
+]
+
+USER_GROUP_HEADERS = [
     "Grouping",
     "Group Code",
     "Group",
@@ -186,6 +204,36 @@ REG_OFFICE_POST_CODE = [
         "Reg. Office Post Code",
         "Registered Office Post Code",
         ]
+
+#udfs
+UDF_TEXT_HEADERS = [
+        "dataimport text test udf",
+        ]
+
+UDF_LONG_HEADERS = [
+        "dataimport long test udf",
+        ]
+
+UDF_DOUBLE_HEADERS = [
+        "dataimport double test udf",
+        ]
+
+UDF_PERCENTAGE_HEADERS = [
+        "dataimport percentage test udf",
+        ]
+
+UDF_BOOL_HEADERS = [
+        "dataimport bool test udf",
+        ]
+
+UDF_DATE_HEADERS = [
+        "dataimport date test udf",
+        ]
+
+UDF_UNSUPPORTED_HEADERS = [
+        "dataimport currency test udf",
+        ]
+
 
 #New Addresses
 ADDRESS_IS_GLOBAL = [
@@ -273,4 +321,162 @@ ADDRESS_TYPE_HEADERS = [
     "Usage",
     "Address Category",
     "Address Purpose"
+]
+
+#Individuals
+
+FORENAME_HEADERS = [
+     "Forenames",
+     "First Name",
+     "Given Name",
+     "Middle Names",
+     "FName",
+     "Christian Name"
+]
+
+SURNAME_HEADERS = [
+    "Surname",
+    "Last Name",
+    "Family Name",
+    "LName"
+]
+
+DISPLAY_AS_HEADERS = [
+    "Name Format",
+    "Name Display Order"
+]
+
+ENTITY_REFERENCE_HEADERS = [
+    "Person Code",
+    "Individual Code",
+    "Contact ID",
+    "Officer ID",
+    "Director ID",
+    "Person ID",
+    "Entity Reference",
+    "Reference Code",
+]
+
+#event date exists
+
+TITLE_HEADERS = [
+    "Title",
+    "Salutation Title",
+    "Prefix",
+]
+
+SALUTATION_HEADERS = [
+    "Salutation",
+    "Greeting",
+]
+
+HONOURS_HEADERS = [
+    "Honours",
+    "Post-nominals",
+    "Suffix",
+    "Designations",
+    "Qualifications"
+]
+
+OCCUPATION_HEADERS = [
+        "Occupation",
+        "Job Title",
+        "Profession",
+        "Role",
+        "Position (Person)"
+]
+
+NATIONALITY_HEADERS = [
+        "Nationality",
+        "Citizenship",
+        "Country of Citizenship",
+        "Nationality Code",
+]
+
+DATE_OF_BIRTH_HEADERS = [
+    "Date of Birth",
+    "DOB",
+    "Birth Date"
+]
+
+DATE_OF_DEATH_HEADERS = [
+    "Date of Death",
+    "DOD",
+    "Deceased Date"
+]
+
+NATIONALITY_IDENTIFICATION_HEADERS = [
+        "Personal ID",
+        "National ID",
+        "ID Number",
+        "Identity Number",
+        "SSN",
+        "National Insurance Number",
+        "NINO",
+        "PPS Number"
+]
+
+PASSPORT_NUMBER_HEADERS = [
+        "Passport Number",
+        "Passport No",
+        "Passport ID"
+]
+
+INDIVIDUAL_ADDRESS1_HEADERS = [
+        "Home Street",
+]
+
+INDIVIDUAL_ADDRESS2_HEADERS = [
+        "Home Suite",
+]
+
+INDIVIDUAL_CITY_HEADERS = [
+        "Home City",
+]
+
+INDIVIDUAL_POSTCODE_HEADERS = [
+        "Home ZIP",
+]
+
+#country already exists
+
+#subcountry already exists
+
+PREVIOUS_NAME_HEADERS = [
+        "Former Name",
+        "Maiden Name",
+        "Prior Name"
+]
+
+#secu grouping
+
+FILE_REFERENCE_HEADERS = [
+    "File Reference",
+    "File Ref",
+    "Matter Ref",
+    "Client File No"
+]
+
+PARTNER_ID_HEADERS = [
+    "Partner",
+    "Partner Code",
+    "Engagement Partner"
+]
+
+MANAGED_BY_HEADERS = [
+        "Managed By",
+        "Account Manager",
+        "Relationship Manager",
+        "RM",
+        "Owner",
+        "Record Owner"
+]
+
+#is historic already exists
+
+#this already exists but it is different somehow? idk
+CONNECT_ENTITIES_TO_ENTITY_SECURITY_GROUP_HEADERS = [
+    "Security Group",
+    "Access Group",
+    "Confidentiality Group"
 ]
