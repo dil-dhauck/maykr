@@ -1,5 +1,3 @@
-from os import name
-
 from openpyxl import load_workbook
 from faker import Faker
 from maykr import utils
@@ -21,31 +19,42 @@ class Maykr:
         self.utils = utils.Utils()
         self.config = Config()
 
+    def pick_header(self, headers: list[str]) -> str:
+        return self.utils.pick_random(headers)
+
     def new_file_name(self) -> str:
         return f"test_file_{self.fake.unique.random_int(min=10000000, max=99999999)}.xlsx"
 
+    def random_date(self) -> str:
+        return self.utils.pick_random([str(self.fake.date_between(start_date="-10y", end_date="today")), " "])
+    
+    def pick_variable(self, variable_list: list[str]) -> str:
+        return self.utils.pick_random([self.utils.pick_random(variable_list), " "])
+
     def write_company_data(self) -> None:
         data = {
-            "A": (self.utils.pick_random(synonyms.COMPANY_ID_HEADERS), lambda: self.utils.pick_random([self.fake.unique.random_int(min=100000, max=999999), " "])),
-            "B": (self.utils.pick_random(synonyms.COMPANY_NAME_HEADERS), lambda: self.fake.company()), #mandatory
-            "C": (self.utils.pick_random(synonyms.COUNTRY_CODE_HEADERS), lambda: self.utils.pick_random(variables.COUNTRIES)), #mandatory
-            "D": (self.utils.pick_random(synonyms.AREA_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.SUBCOUNTRIES)," "])),
-            "E": (self.utils.pick_random(synonyms.COMPANY_REGISTRATION_HEADERS), lambda: self.fake.unique.random_int(min=10000000, max=99999999)), #mandatory
-            "F": (self.utils.pick_random(synonyms.COMPANY_INCORPORATION_DATE_HEADERS), lambda: self.utils.pick_random([self.fake.date_between(start_date="-10y", end_date="today")," "])),
-            "G": (self.utils.pick_random(synonyms.COMPANY_STATUS_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.COMPANY_STATUSES), " "])),
-            "H": (self.utils.pick_random(synonyms.COMPANY_EMAIL_HEADERS), lambda: self.utils.pick_random([self.fake.email()," "])),
-            "I": (self.utils.pick_random(synonyms.DATE_OF_DISSOLVED_HEADERS), lambda: self.utils.pick_random([self.fake.date()," "])),
-            "J": (self.utils.pick_random(synonyms.EVENT_DATE_HEADERS), lambda: self.fake.date()),
-            "K": (self.utils.pick_random(synonyms.COMPANY_TYPE_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.COMPANY_TYPES), " "])),
-            "L": (self.utils.pick_random(synonyms.SECURITY_GROUP_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.DEQA_SECURITY_GROUPS), " "])),
-            "M": (self.utils.pick_random(synonyms.ADDITIONAL_INFO_HEADERS), lambda: self.utils.pick_random([self.fake.text(max_nb_chars=50)," "])),
-            "N": (self.utils.pick_random(synonyms.USER_GROUP_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.USER_GROUP_OPTIONS), " "])),
+            "A": (self.pick_header(synonyms.COMPANY_ID_HEADERS), lambda: self.utils.pick_random([self.fake.unique.random_int(min=100000, max=999999), " "])),
+            "B": (self.pick_header(synonyms.COMPANY_NAME_HEADERS), lambda: self.fake.company()), #mandatory
+            "C": (self.pick_header(synonyms.COUNTRY_CODE_HEADERS), lambda: self.utils.pick_random(variables.COUNTRIES)), #mandatory
+            "D": (self.pick_header(synonyms.AREA_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.SUBCOUNTRIES)," "])),
+            "E": (self.pick_header(synonyms.COMPANY_REGISTRATION_HEADERS), lambda: self.fake.unique.random_int(min=10000000, max=99999999)), #mandatory
+            "F": (self.pick_header(synonyms.COMPANY_INCORPORATION_DATE_HEADERS), lambda: self.random_date()),
+            "G": (self.pick_header(synonyms.COMPANY_STATUS_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.COMPANY_STATUSES), " "])),
+            "H": (self.pick_header(synonyms.COMPANY_EMAIL_HEADERS), lambda: self.utils.pick_random([self.fake.email()," "])),
+            "I": (self.pick_header(synonyms.DATE_OF_DISSOLVED_HEADERS), lambda: self.random_date()),
+            "J": (self.pick_header(synonyms.EVENT_DATE_HEADERS), lambda: self.random_date()),
+            "K": (self.pick_header(synonyms.COMPANY_TYPE_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.COMPANY_TYPES), " "])),
+            "L": (self.pick_header(synonyms.SECURITY_GROUP_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.DEQA_SECURITY_GROUPS), " "])),
+            "M": (self.pick_header(synonyms.ADDITIONAL_INFO_HEADERS), lambda: self.utils.pick_random([self.fake.text(max_nb_chars=50)," "])),
+            "N": (self.pick_header(synonyms.USER_GROUP_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.USER_GROUP_OPTIONS), " "])),
             #connected addresses
-            "O": (self.utils.pick_random(synonyms.COMPANY_ADDRESS1_HEADERS), lambda: self.utils.pick_random([self.fake.street_address(), " "])),
-            "P": (self.utils.pick_random(synonyms.COMPANY_ADDRESS2_HEADERS), lambda: self.utils.pick_random([self.fake.street_address(), " "])),
-            "Q": (self.utils.pick_random(synonyms.COMPANY_REG_OFFICE_POST_TOWN_HEADERS), lambda: self.utils.pick_random([self.fake.city(), " "])),
-            "R": (self.utils.pick_random(synonyms.REG_OFFICE_POST_CODE), lambda: self.utils.pick_random([self.fake.postcode(), " "])),
-            "S": (self.utils.pick_random(synonyms.UDF_TEXT_HEADERS), lambda: self.utils.pick_random([self.fake.text(max_nb_chars=29), " "])),
+            "O": (self.pick_header(synonyms.COMPANY_ADDRESS1_HEADERS), lambda: self.utils.pick_random([self.fake.street_address()])),
+            "P": (self.pick_header(synonyms.COMPANY_ADDRESS2_HEADERS), lambda: self.utils.pick_random([self.fake.street_address()])),
+            "Q": (self.pick_header(synonyms.COMPANY_REG_OFFICE_POST_TOWN_HEADERS), lambda: self.utils.pick_random([self.fake.city()])),
+            "R": (self.pick_header(synonyms.REG_OFFICE_POST_CODE), lambda: self.utils.pick_random([self.fake.postcode()])),
+            "S": (self.pick_header(synonyms.UDF_TEXT_HEADERS), lambda: self.utils.pick_random([self.fake.text(max_nb_chars=29)])),
+            #connected individuals
+            "V": (self.utils.pick_random(synonyms.ENTITY_REFERENCE_HEADERS), lambda: self.utils.pick_random([self.fake.unique.random_int(min=100000, max=999999), " "])),
         }
 
 
@@ -87,10 +96,10 @@ class Maykr:
             "F": (self.utils.pick_random(synonyms.SALUTATION_HEADERS), lambda: self.utils.pick_random(["Dear Jane", "Dear Dr Smith", " "])),
             "G": (self.utils.pick_random(synonyms.HONOURS_HEADERS), lambda: self.utils.pick_random(["QC", "FCA", "OBE", "CBE", " "])),
             "H": (self.utils.pick_random(synonyms.OCCUPATION_HEADERS), lambda: self.fake.job()),
-            "I": (self.utils.pick_random(synonyms.NATIONALITY_HEADERS), lambda: self.utils.pick_random([self.fake.country(), " "])),
+            "I": (self.pick_header(synonyms.NATIONALITY_HEADERS), lambda: self.pick_variable(variables.NATIONALITY_OPTIONS)),
             "J": (self.utils.pick_random(synonyms.DATE_OF_BIRTH_HEADERS), lambda: self.fake.date_of_birth(minimum_age=18, maximum_age=90)),
             "K": (self.utils.pick_random(synonyms.DATE_OF_DEATH_HEADERS), lambda: self.utils.pick_random([self.fake.date_of_birth(minimum_age=18, maximum_age=90), " "])),
-            "L": (self.utils.pick_random(synonyms.NATIONALITY_IDENTIFICATION_HEADERS), lambda: self.utils.pick_random([self.fake.random_int(min=10000000, max=99999999), " "])),
+            "L": (self.pick_header(synonyms.NATIONALITY_IDENTIFICATION_HEADERS), lambda: self.utils.pick_random([self.fake.random_int(min=10000000, max=99999999), " "])),
             "M": (self.utils.pick_random(synonyms.PASSPORT_NUMBER_HEADERS), lambda: self.utils.pick_random([self.fake.unique.random_int(min=10000000, max=99999999), " "])),
             "N": (self.utils.pick_random(synonyms.COUNTRY_CODE_HEADERS), lambda: self.utils.pick_random(variables.COUNTRIES)),
             "O": (self.utils.pick_random(synonyms.AREA_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.SUBCOUNTRIES)," "])),
@@ -102,10 +111,10 @@ class Maykr:
             "U": (self.utils.pick_random(synonyms.IS_HISTORIC), lambda: self.utils.pick_random(["Yes", "True", "No", "False", " "])),
 
             #connected addresses
-            "W": (self.utils.pick_random(synonyms.INDIVIDUAL_ADDRESS1_HEADERS), lambda: self.utils.pick_random([self.fake.street_address(), " "])),
-            "X": (self.utils.pick_random(synonyms.INDIVIDUAL_ADDRESS2_HEADERS), lambda: self.utils.pick_random([self.fake.street_address(), " "])),
-            "Y": (self.utils.pick_random(synonyms.INDIVIDUAL_CITY_HEADERS), lambda: self.utils.pick_random([self.fake.city(), " "])),
-            "Z": (self.utils.pick_random(synonyms.INDIVIDUAL_POSTCODE_HEADERS), lambda: self.utils.pick_random([self.fake.postcode(), " "])),
+            "V": (self.utils.pick_random(synonyms.INDIVIDUAL_ADDRESS1_HEADERS), lambda: self.utils.pick_random([self.fake.street_address(), " "])),
+            "W": (self.utils.pick_random(synonyms.INDIVIDUAL_ADDRESS2_HEADERS), lambda: self.utils.pick_random([self.fake.street_address(), " "])),
+            "X": (self.utils.pick_random(synonyms.INDIVIDUAL_CITY_HEADERS), lambda: self.utils.pick_random([self.fake.city(), " "])),
+            "Y": (self.utils.pick_random(synonyms.INDIVIDUAL_POSTCODE_HEADERS), lambda: self.utils.pick_random([self.fake.postcode(), " "])),
         }
 
         for column, (header, generator) in data.items():
