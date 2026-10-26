@@ -185,17 +185,17 @@ ADDITIONAL_INFO_HEADERS = [
 ]
 
 #connected addresses
-COMPANY_ADDRESS1_HEADERS = [
+REGISTERED_OFFICE_ADDRESS1_HEADERS = [
         "Reg. Office Address 1",
         "Registered Office Address 1",
         ]
 
-COMPANY_ADDRESS2_HEADERS = [
+REGISTERED_OFFICE_ADDRESS2_HEADERS = [
         "Reg. Office Address 2",
         "Registered Office Address 2",
         ]
 
-COMPANY_REG_OFFICE_POST_TOWN_HEADERS = [
+REGISTERED_OFFICE_ADDRESS3_HEADERS = [
         "Reg. Office Post Town",
         "Registered Office Post Town",
         ]
@@ -204,6 +204,23 @@ REG_OFFICE_POST_CODE = [
         "Reg. Office Post Code",
         "Registered Office Post Code",
         ]
+
+TRADING_AT_ADDRESS1_HEADERS = [
+        "Trading At Address 1",
+        ]
+
+TRADING_AT_ADDRESS2_HEADERS = [
+        "Trading At Address 2",
+        ]
+
+TRADING_AT_POST_TOWN_HEADERS = [
+        "Trading At Post Town",
+        ]
+
+TRADING_AT_POST_CODE = [
+        "Trading At Post Code",
+        ]
+
 
 #udfs
 UDF_TEXT_HEADERS = [

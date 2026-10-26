@@ -63,3 +63,7 @@ For the example configuration above, the files would be generated in:
 ```text
 ~/Documents/test_files/generated/
 ```
+
+for more QA info about Data Import, check out our confluence page:
+
+[Confluence Page](https://diligentbrands.atlassian.net/wiki/spaces/BPOW/folder/7412810128?atlOrigin=eyJpIjoiMzc1Zjc0OTEwZTYwNDIyZTk5Mjg0OWQxZmM1ZTdkZWEiLCJwIjoiYyJ9)

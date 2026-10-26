@@ -33,6 +33,7 @@ class Maykr:
 
     def write_company_data(self) -> None:
         data = {
+            #general company data
             "A": (self.pick_header(synonyms.COMPANY_ID_HEADERS), lambda: self.utils.pick_random([self.fake.unique.random_int(min=100000, max=999999), " "])),
             "B": (self.pick_header(synonyms.COMPANY_NAME_HEADERS), lambda: self.fake.company()), #mandatory
             "C": (self.pick_header(synonyms.COUNTRY_CODE_HEADERS), lambda: self.utils.pick_random(variables.COUNTRIES)), #mandatory
@@ -44,17 +45,22 @@ class Maykr:
             "I": (self.pick_header(synonyms.DATE_OF_DISSOLVED_HEADERS), lambda: self.random_date()),
             "J": (self.pick_header(synonyms.EVENT_DATE_HEADERS), lambda: self.random_date()),
             "K": (self.pick_header(synonyms.COMPANY_TYPE_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.COMPANY_TYPES), " "])),
-            "L": (self.pick_header(synonyms.SECURITY_GROUP_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.DEQA_SECURITY_GROUPS), " "])),
-            "M": (self.pick_header(synonyms.ADDITIONAL_INFO_HEADERS), lambda: self.utils.pick_random([self.fake.text(max_nb_chars=50)," "])),
-            "N": (self.pick_header(synonyms.USER_GROUP_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.USER_GROUP_OPTIONS), " "])),
             #connected addresses
-            "O": (self.pick_header(synonyms.COMPANY_ADDRESS1_HEADERS), lambda: self.utils.pick_random([self.fake.street_address()])),
-            "P": (self.pick_header(synonyms.COMPANY_ADDRESS2_HEADERS), lambda: self.utils.pick_random([self.fake.street_address()])),
-            "Q": (self.pick_header(synonyms.COMPANY_REG_OFFICE_POST_TOWN_HEADERS), lambda: self.utils.pick_random([self.fake.city()])),
-            "R": (self.pick_header(synonyms.REG_OFFICE_POST_CODE), lambda: self.utils.pick_random([self.fake.postcode()])),
-            "S": (self.pick_header(synonyms.UDF_TEXT_HEADERS), lambda: self.utils.pick_random([self.fake.text(max_nb_chars=29)])),
-            #connected individuals
-            "V": (self.utils.pick_random(synonyms.ENTITY_REFERENCE_HEADERS), lambda: self.utils.pick_random([self.fake.unique.random_int(min=100000, max=999999), " "])),
+            "L": (self.pick_header(synonyms.REGISTERED_OFFICE_ADDRESS1_HEADERS), lambda: self.utils.pick_random([self.fake.street_address()])),
+            "M": (self.pick_header(synonyms.REGISTERED_OFFICE_ADDRESS2_HEADERS), lambda: self.utils.pick_random([self.fake.street_address()])),
+            "N": (self.pick_header(synonyms.REG_OFFICE_POST_TOWN_HEADERS), lambda: self.utils.pick_random([self.fake.city()])),
+            "O": (self.pick_header(synonyms.REG_OFFICE_POST_CODE), lambda: self.utils.pick_random([self.fake.postcode()])),
+            "P": (self.pick_header(synonyms.TRADING_AT_ADDRESS1_HEADERS), lambda: self.utils.pick_random([self.fake.street_address()])),
+            "Q": (self.pick_header(synonyms.TRADING_AT_ADDRESS2_HEADERS), lambda: self.utils.pick_random([self.fake.street_address()])),
+            "R": (self.pick_header(synonyms.TRADING_AT_POST_TOWN_HEADERS), lambda: self.utils.pick_random([self.fake.city()])),
+            "S": (self.pick_header(synonyms.TRADING_AT_POST_CODE), lambda: self.utils.pick_random([self.fake.postcode()])),
+            #connected individuals(not yet implemented by quake devs, will be called "appointments")
+            "T": (self.utils.pick_random(synonyms.ENTITY_REFERENCE_HEADERS), lambda: self.utils.pick_random([self.fake.unique.random_int(min=100000, max=999999), " "])),
+            #other stuff
+            "V": (self.pick_header(synonyms.UDF_TEXT_HEADERS), lambda: self.utils.pick_random([self.fake.text(max_nb_chars=29)])),
+            "W": (self.pick_header(synonyms.SECURITY_GROUP_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.DEQA_SECURITY_GROUPS), " "])),
+            "X": (self.pick_header(synonyms.ADDITIONAL_INFO_HEADERS), lambda: self.utils.pick_random([self.fake.text(max_nb_chars=50)," "])),
+            "Y": (self.pick_header(synonyms.USER_GROUP_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.USER_GROUP_OPTIONS), " "])),
         }
 
 
@@ -109,12 +115,11 @@ class Maykr:
             "S": (self.utils.pick_random(synonyms.PARTNER_ID_HEADERS), lambda: self.utils.pick_random([self.utils.pick_random(variables.DIVISION_PARTNER_OPTIONS), " "])),
             "T": (self.utils.pick_random(synonyms.MANAGED_BY_HEADERS), lambda: self.utils.pick_random(variables.MANAGED_BY_OPTIONS)),
             "U": (self.utils.pick_random(synonyms.IS_HISTORIC), lambda: self.utils.pick_random(["Yes", "True", "No", "False", " "])),
-
             #connected addresses
-            "V": (self.utils.pick_random(synonyms.INDIVIDUAL_ADDRESS1_HEADERS), lambda: self.utils.pick_random([self.fake.street_address(), " "])),
+            "V": (self.utils.pick_random(synonyms.INDIVIDUAL_ADDRESS1_HEADERS), lambda: self.fake.street_address()), #mandatory
             "W": (self.utils.pick_random(synonyms.INDIVIDUAL_ADDRESS2_HEADERS), lambda: self.utils.pick_random([self.fake.street_address(), " "])),
-            "X": (self.utils.pick_random(synonyms.INDIVIDUAL_CITY_HEADERS), lambda: self.utils.pick_random([self.fake.city(), " "])),
-            "Y": (self.utils.pick_random(synonyms.INDIVIDUAL_POSTCODE_HEADERS), lambda: self.utils.pick_random([self.fake.postcode(), " "])),
+            "X": (self.utils.pick_random(synonyms.INDIVIDUAL_CITY_HEADERS), lambda: self.fake.city()), #mandatory
+            "Y": (self.utils.pick_random(synonyms.INDIVIDUAL_POSTCODE_HEADERS), lambda: self.fake.postcode()), #mandatory
         }
 
         for column, (header, generator) in data.items():
