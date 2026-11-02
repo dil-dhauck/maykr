@@ -1,9 +1,9 @@
-#variables.py
+# variables_aws_regression.py
 
 COUNTRIES = ["United Kingdom"]
 
 MANAGED_BY_OPTIONS = [
-        "David Test New"
+        "David Hauck"
         ]
 
 NATIONALITY_OPTIONS = [
@@ -57,32 +57,11 @@ NATIONALITY_OPTIONS = [
 ]
 
 DIVISION_PARTNER_OPTIONS = [
-    "Systems Software",
-    "Application Software",
-    "Utilities Software",
-    "EMEA Division",
-    "Americas Division",
-    "Asia-Pacific Division",
+    "dhauck test",
 ]
 
 USER_GROUP_OPTIONS = [
-    "Telecommunication",
-    "Agriculture",
-    "Energy",
-    "Computer",
-    "Food",
-    "Mining",
-    "Financial",
-    "Chemical",
-    "News Media",
-    "Transport",
-    "Construction",
-    "Aerospace",
-    "Entertainment",
-    "Hospitality",
-    "Health Care",
-    "Pharmaceutical",
-    "Automation Testing",
+    "dhauck test"
 ]
 
 COMPANY_TYPES = [
@@ -96,6 +75,7 @@ COMPANY_TYPES = [
     "European Economic Interest Grouping",
     "Unlimited with Shares",
     "Unlimited without Shares",
+    "Public Company",
     "Partnership",
     "Limited Partnership",
     "Societas Europaea (SE)",
@@ -103,23 +83,49 @@ COMPANY_TYPES = [
     "Community Interest Public Limited Company",
     "Scottish Limited Partnership (SLP)",
     "Private Fund Limited Partnership",
-    "Trust",
+    # "General Purpose Committee",
+    # "Audit Committee",
+    # "Remuneration Committee",
+    # "Nomination Committee",
+    # "Group Executive Committee",
+    # "Disclosure Committee",
+    # "Sustainability Committee",
+    # "Chairman's Committee",
+    # "Investment Committee",
+    # "Risk Committee",
+    # "Personnel Committee",
+    # "Arbitration Committee",
+    # "Mediation Committee",
+    # "Oversight Committee",
+    # "Regulatory Committee",
+    # "Integrity Committee",
+    # "Steering Committee",
+    # "Reputation Committee",
+    # "Operational Committee",
+    # "Strategy Committee",
+    # "Compensation Committee",
+    # "Limited Partnership",
+    # "Private Fund Limited Partnership",
+    # "Limited Liability Partnership",
+    # "Scotland Limited Partnership",
 ]
 
 COMPANY_STATUSES = [
-    "Active",
-    "Dormant",
-    "Active Non-Trading",
     "Sold",
-    "In Liquidation",
-    "In Administrative Receivership",
-    "In Administration",
-    "Liquidated (solvent)",
-    "Liquidated (insolvent)",
-    "Strike Off Requested",
-    "Struck Off",
-    "Dissolved",
-    "De-registered",
+    # "In Liquidation",
+    # "In Administrative Receivership",
+    # "In Administration",
+    # "Liquidated (solvent)",
+    # "Liquidated (insolvent)",
+    # "Strike Off Requested",
+    # "Struck Off",
+    # "Dissolved",
+    # "De-registered",
+    # "Active",
+    # "Closed",
+    # "Open",
+    # "Pending",
+    # "Merged",
 ]
 
 SUBCOUNTRIES = [
@@ -130,13 +136,16 @@ SUBCOUNTRIES = [
     "Wales",
 ]
 
-DEQA_SECURITY_GROUPS = [ 
-    "country code dhauck",
-    "Demo Stop (Read)",
+SECURITY_GROUPS = [
     "All Records Not Pending (Standard)",
-    "Dave Companies",
-    "dhauck security group",
-    ]
+    "All Records Not Pending (Read Only)",
+    "All Records Pending (Standard)",
+    "All Records Pending (Read Only)",
+    "sj test sec group 1",
+    "Individuals Test",
+    "Nia UCIP test",
+    "dhauck",
+]
 
 ADDRESS_TYPES = [
     "Trading At",
