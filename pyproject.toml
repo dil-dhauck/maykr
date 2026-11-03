@@ -9,6 +9,7 @@ dependencies = [
     "typer",
     "openpyxl",
     "faker"
+    "wordhoard"
 ]
 
 [project.scripts]

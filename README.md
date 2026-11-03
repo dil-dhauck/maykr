@@ -48,8 +48,9 @@ Example configuration:
 
 Generate test files:
 
+for deqa21:
 ```bash
-maykr create
+maykr create deqa21
 ```
 
 This command creates the files in:
