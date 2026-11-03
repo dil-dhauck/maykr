@@ -11,6 +11,7 @@ Install the required dependency:
 pip install typer
 pip install openpyxl
 pip install faker
+pip install wordhoard
 ```
 
 Than simply install maykr:
