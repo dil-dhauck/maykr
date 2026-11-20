@@ -12,18 +12,6 @@ COMPANY_ID_HEADERS = [
     "Internal ID",
 ]
 
-COMPANY_ID_HEADERS = [
-    "Entity Code",
-    "Entity ID",
-    "Entity Identifier",
-    "Company Code",
-    "Company ID",
-    "Org Code",
-    "Organisation Code",
-    "Client Entity ID",
-    "Internal ID",
-]
-
 COMPANY_NAME_HEADERS = [
     "Entity Name",
     "Org Name",
@@ -157,6 +145,37 @@ IS_HISTORIC = [
     "Is Active?",
 ]
 
+#appointments
+
+BOARD_MEETING_DATE_HEADERS = [
+    "Board Date",
+    "Meeting Date"
+]
+
+CONSENT_TO_ACT_HEADERS = [
+    "Consent to Act",
+    "Consent Given"
+]
+
+DOES_NOT_ATTEND_MEETINGS_HEADERS = [
+    "Not Attendee",
+    "Non-Attendee?",
+    "Attends Meetings?"
+]
+
+APPOINTMENT_NOTES_HEADERS = [
+    "Appointment Notes",
+    "Comments",
+    "Internal Notes",
+    "Remarks"
+]
+
+SHOW_NOTES_ON_REGISTER_HEADERS = [
+    "Notes on Register",
+    "Register Notes Flag"
+]
+
+#other stuff
 SECURITY_GROUP_HEADERS = [
     "Security Group",
     "Access Group",
@@ -368,7 +387,10 @@ ENTITY_REFERENCE_HEADERS = [
     "Individual Code",
     "Contact ID",
     "Officer ID",
+    "Officer Code",
+    "Appointee Code",
     "Director ID",
+    "Director Code",
     "Person ID",
     "Entity Reference",
     "Reference Code",

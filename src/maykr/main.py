@@ -2,15 +2,15 @@ from enum import Enum
 
 import typer
 
-from maykr.assets import variables_deqa21, variables_derg11, variables_aws_regression
-from maykr.maykr import Maykr
+from maykr.environments import variables_deqa21, variables_derg11, variables_aws_regression
+from maykr.make_file import MakeFile
 
 app = typer.Typer()
 
 
 class Env(str, Enum):
-    derg11 = "derg11"
-    deqa21 = "deqa21"
+    derg11 = "derg011"
+    deqa21 = "deqa021"
     aws = "aws"
 
 
@@ -29,7 +29,7 @@ def main() -> None:
 @app.command()
 def create(env: Env) -> None:
     """Generate files for an environment."""
-    Maykr(VARIABLES[env]).generate_files()
+    MakeFile(VARIABLES[env]).generate_files()
 
 
 if __name__ == "__main__":
