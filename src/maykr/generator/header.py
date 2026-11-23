@@ -10,7 +10,7 @@ class Header:
         self.utils = Utils()
 
     def company(self) -> Dict:
-        company: Dict = {
+        return {
             # general company data
             "company_id": (self.utils.pick_header(synonyms.COMPANY_ID_HEADERS)),
             "company_name": (self.utils.pick_header(synonyms.COMPANY_NAME_HEADERS)),
@@ -38,10 +38,9 @@ class Header:
             "additional_info": (self.utils.pick_header(synonyms.ADDITIONAL_INFO_HEADERS)),
             "user_group": (self.utils.pick_header(synonyms.USER_GROUP_HEADERS)),
            }
-        return company
 
     def address(self) -> Dict:
-        address: Dict = {
+        return {
             "address_reference_number": (self.utils.pick_header(synonyms.ADDRESS_REFERENCE_NUMBER_HEADERS)),
             "street_address": (self.utils.pick_header(synonyms.STREET_ADDRESS_HEADERS)),
             "secondary_address": (self.utils.pick_header(synonyms.SECONDARY_ADDRESS_HEADERS)),
@@ -56,10 +55,9 @@ class Header:
             "additional_info": (self.utils.pick_header(synonyms.ADDITIONAL_INFO_HEADERS)),
             "address_type": (self.utils.pick_header(synonyms.ADDRESS_TYPE_HEADERS)),
            }
-        return address
 
     def individual(self) -> Dict:
-        individual: Dict = {
+        return {
             "first_name": (self.utils.pick_header(synonyms.FORENAME_HEADERS)),
             "last_name": (self.utils.pick_header(synonyms.SURNAME_HEADERS)),
             "display_as": (self.utils.pick_header(synonyms.DISPLAY_AS_HEADERS)),
@@ -87,4 +85,34 @@ class Header:
             "individual_city": (self.utils.pick_header(synonyms.INDIVIDUAL_CITY_HEADERS)),
             "individual_postcode": (self.utils.pick_header(synonyms.INDIVIDUAL_POSTCODE_HEADERS)),
            }
-        return individual
+
+    def appointment(self) -> Dict:
+        return {
+            "appointment_date": (self.utils.pick_header(synonyms.APPOINTMENT_DATE_HEADERS)),
+            "board_meeting_date": (self.utils.pick_header(synonyms.BOARD_MEETING_DATE_HEADERS)),
+            "consent_to_act": (self.utils.pick_header(synonyms.CONSENT_TO_ACT_HEADERS)),
+            "does_not_attend_meetings": (self.utils.pick_header(synonyms.DOES_NOT_ATTEND_MEETINGS_HEADERS)),
+            "appointment_notes": (self.utils.pick_header(synonyms.APPOINTMENT_NOTES_HEADERS)),
+            "show_notes_on_register": (self.utils.pick_header(synonyms.SHOW_NOTES_ON_REGISTER_HEADERS)),
+            "entity_id": (self.utils.pick_header(synonyms.ENTITY_REFERENCE_HEADERS)),
+            "appointment_type_id": (self.utils.pick_header(synonyms.APPOINTMENT_TYPE_ID_HEADERS)),
+            "job_title": (self.utils.pick_header(synonyms.JOB_TITLE_HEADERS)),
+            "appointment_group_id": (self.utils.pick_header(synonyms.APPOINTMENT_GROUP_ID_HEADERS)),
+            "appointment_level": (self.utils.pick_header(synonyms.APPOINTMENT_LEVEL_HEADERS)),
+            "appointment_status_id": (self.utils.pick_header(synonyms.APPOINTMENT_STATUS_ID_HEADERS)),
+            "appointment_reminder_date": (self.utils.pick_header(synonyms.APPOINTMENT_REMINDER_DATE_HEADERS)),
+            # "alternate_to_entity_id": (self.utils.pick_header(synonyms.ALTERNATE_TO_ENTITY_ID_HEADERS)), #Next iteration
+            # tracking status
+            "tracking_status_id": (self.utils.pick_header(synonyms.TRACKING_STATUS_ID_HEADERS)),
+            "tracking_assigned_to_id": (self.utils.pick_header(synonyms.ASSIGNED_TO_HEADERS)),
+            "tracking_reminder_date": (self.utils.pick_header(synonyms.TRACKING_STATUS_REMINDER_DATE_HEADERS)),
+            "tracking_notes": (self.utils.pick_header(synonyms.TRACKING_NOTES_HEADERS)),
+            # workflow status
+            "workflow_code": (self.utils.pick_header(synonyms.WORKFLOW_CODE_HEADERS)),
+            "workflow_stage": (self.utils.pick_header(synonyms.WORKFLOW_STAGE_HEADERS)),
+            "workflow_assigned_to_id": (self.utils.pick_header(synonyms.ASSIGNED_TO_ID_HEADERS)),
+            "workflow_due_date": (self.utils.pick_header(synonyms.DUE_DATE_HEADERS_HEADERS)),
+            }
+
+
+

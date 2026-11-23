@@ -5,3 +5,6 @@
 src/maykr/assets/~$template.xlsx
 src/maykr/assets/~$template.xlsx
 wordhoard_error.yaml
+debug.py
+/src/maykr/environments/__pycache__
+/src/maykr/generator/__pycache__

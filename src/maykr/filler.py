@@ -1,6 +1,7 @@
+import random
 from pathlib import Path
 from types import ModuleType
-from typing import Dict, List
+from typing import Callable, Dict, List, Tuple
 
 from faker import Faker
 from openpyxl import load_workbook
@@ -10,6 +11,106 @@ from maykr.environments import variables_deqa21
 from maykr.config import Config
 from maykr.generator.body import Body
 from maykr.generator.header import Header
+
+
+COMPANY_COLUMNS: Dict[str, str] = {
+    # general company data
+    "A": "company_id",  # mandatory for appointments, not mando for company create
+    "B": "company_name",  # mandatory
+    "C": "country_code",  # mandatory
+    "D": "area",
+    "E": "registration_number", # mandatory
+    "F": "incorporation_date",
+    "G": "status",
+    "H": "email",
+    "I": "date_of_dissolved",
+    "J": "event_date",
+    "K": "company_type",
+    # connected addresses
+    "L": "registered_office_address1",
+    "M": "registered_office_address2",
+    "N": "registered_office_post_town",
+    "O": "registered_office_post_code",
+    "P": "trading_at_address1",
+    "Q": "trading_at_address2",
+    "R": "trading_at_post_town",
+    "S": "trading_at_post_code",
+    # other stuff
+    "V": "udf_text",
+    "W": "security_group",
+    "X": "additional_info",
+    "Y": "user_group",
+}
+
+# appointments are written on the "Company Data" sheet, to the right of the company columns,
+# so every company row gets one appointment next to it
+APPOINTMENT_COLUMNS: Dict[str, str] = {
+    "Z": "appointment_date",  # mandatory
+    "AA": "board_meeting_date",
+    "AB": "consent_to_act",
+    "AC": "does_not_attend_meetings",
+    "AD": "appointment_notes",
+    "AE": "show_notes_on_register",
+    "AF": "entity_id",
+    "AG": "appointment_type_id",  # mandatory
+    "AH": "job_title",
+    "AI": "appointment_group_id",
+    "AJ": "appointment_level",
+    "AK": "appointment_status_id",  # mandatory
+    "AL": "appointment_reminder_date",
+    # tracking status
+    "AM": "tracking_status_id",
+    "AN": "tracking_assigned_to_id",
+    "AO": "tracking_reminder_date",
+    "AP": "tracking_notes",
+}
+
+ADDRESS_COLUMNS: Dict[str, str] = {
+    "A": "address_reference_number",
+    "B": "street_address",  # mandatory
+    "C": "secondary_address",
+    "D": "third_address",
+    "E": "town_city",  # mandatory
+    "F": "area",
+    "G": "country_code",  # mandatory
+    "H": "postcode",  # mandatory
+    "I": "latitude",
+    "J": "longitude",
+    "K": "is_global",
+    "L": "additional_info",
+    "M": "address_type",
+}
+
+INDIVIDUAL_COLUMNS: Dict[str, str] = {
+    "A": "first_name",  # mandatory
+    "B": "last_name",  # mandatory
+    "C": "display_as",  # mandatory
+    "D": "entity_reference",
+    "E": "title",
+    "F": "salutation",
+    "G": "honours",
+    "H": "occupation",
+    "I": "nationality",
+    "J": "date_of_birth",
+    "K": "date_of_death",
+    "L": "nationality_identification",
+    "M": "passport_number",
+    "N": "country_code",
+    "O": "area",
+    "P": "previous_name",
+    "Q": "security_group",
+    "R": "file_reference",
+    "S": "partner_id",
+    "T": "managed_by",
+    "U": "is_historic",
+    # connected addresses
+    "V": "individual_address1",  # mandatory
+    "W": "individual_address2",
+    "X": "individual_city",  # mandatory
+    "Y": "individual_postcode",  # mandatory
+}
+
+
 
 class Filler:
 
@@ -23,168 +124,64 @@ class Filler:
         self.body = Body(environment)
         self.header = Header()
         self.SHEETS: List = ["Company Data", "New Addresses", "Individuals"]
-        self.CURRENT_DATA: List[Dict] = [{}]
+        self.CURRENT_DATA: Dict[str, Dict] = {}
 
+    def build_sheet(
+            self,
+            headers: Dict[str, str],
+            make_record: Callable[[], Dict],
+            columns: Dict[str, str],
+            quantity: int,
+        ) -> Tuple[Dict[str, str], List[Dict]]:
 
-    def company_data(self) -> Dict:
-        header = self.header.company()
-        body = self.body.company()
-        data = {
-            # general company data
-            "A": (header["company_id"], body["company_id"]),  # mandatory for appointments, not mando for company create
-            "B": (header["company_name"], body["company_name"]),  # mandatory
-            "C": (header["country_code"], body["country_code"]),  # mandatory
-            "D": (header["area"], body["area"]),
-            "E": (header["registration_number"], body["registration_number"]),  # mandatory
-            "F": (header["incorporation_date"], body["incorporation_date"]),
-            "G": (header["status"], body["status"]),
-            "H": (header["email"], body["email"]),
-            "I": (header["date_of_dissolved"], body["date_of_dissolved"]),
-            "J": (header["event_date"], body["event_date"]),
-            "K": (header["company_type"], body["company_type"]),
-            # connected addresses
-            "L": (header["registered_office_address1"], body["registered_office_address1"]),
-            "M": (header["registered_office_address2"], body["registered_office_address2"]),
-            "N": (header["registered_office_post_town"], body["registered_office_post_town"]),
-            "O": (header["registered_office_post_code"], body["registered_office_post_code"]),
-            "P": (header["trading_at_address1"], body["trading_at_address1"]),
-            "Q": (header["trading_at_address2"], body["trading_at_address2"]),
-            "R": (header["trading_at_post_town"], body["trading_at_post_town"]),
-            "S": (header["trading_at_post_code"], body["trading_at_post_code"]),
-            # other stuff
-            "V": (header["udf_text"], body["udf_text"]),
-            "W": (header["security_group"], body["security_group"]),
-            "X": (header["additional_info"], body["additional_info"]),
-            "Y": (header["user_group"], body["user_group"]),
+            sheet_headers = {col: headers[field] for col, field in columns.items()}
+            records = [make_record() for _ in range(quantity)]
+            return sheet_headers, records
+
+    def create_and_save_sheet_data(self) -> None:
+        items = [
+            ("Company Data", self.header.company(), self.body.company, COMPANY_COLUMNS, self.config.number_of_companies),
+            ("New Addresses", self.header.address(), self.body.address, ADDRESS_COLUMNS, self.config.number_of_addresses),
+            ("Individuals", self.header.individual(), self.body.individual, INDIVIDUAL_COLUMNS, self.config.number_of_individuals),
+        ]
+        for sheet, headers, make_record, columns, qty in items:
+            sheet_headers, records = self.build_sheet(headers, make_record, columns, qty)
+            self.CURRENT_DATA[sheet] = {"sheet": sheet, "columns": columns, "headers": sheet_headers, "records": records}
+
+        # needs the companies and individuals above, so it has to run after them
+        self.add_appointments()
+
+    def add_appointments(self) -> None:
+        companies = self.CURRENT_DATA["Company Data"]["records"]
+        individuals = self.CURRENT_DATA["Individuals"]["records"]
+        if not companies or not individuals:
+            raise ValueError("Appointments need at least one company and one individual")
+
+        headers = self.header.appointment()
+        sheet_headers = {col: headers[field] for col, field in APPOINTMENT_COLUMNS.items()}
+
+        # one appointment per company row, each with a random existing individual
+        records = [
+            self.body.appointments(random.choice(individuals), company)
+            for company in companies
+        ]
+
+        self.CURRENT_DATA["Appointments"] = {
+            "sheet": "Company Data",  # same sheet as the companies, columns Z onwards
+            "columns": APPOINTMENT_COLUMNS,
+            "headers": sheet_headers,
+            "records": records,
         }
-        return data
-
-    # def add_appointments(self) -> None: #TODO
-    #
-    #     data = {
-    #         # connected individuals
-    #         "": (
-    #             self.utils.pick_header(synonyms.EVENT_DATE_HEADERS),
-    #             lambda: self.utils.random_date(),
-    #         ),  # mandatory
-    #         "": (
-    #             self.utils.pick_header(synonyms.BOARD_MEETING_DATE_HEADERS),
-    #             lambda: self.utils.random_date(),
-    #         ),  # mandatory
-    #         "": (
-    #             self.utils.pick_header(synonyms.CONSENT_TO_ACT_HEADERS),
-    #             lambda: self.utils.pick_random(["true", "false", " "]),
-    #         ),
-    #         "": (
-    #             self.utils.pick_header(synonyms.DOES_NOT_ATTEND_MEETINGS_HEADERS),
-    #             lambda: self.utils.pick_random(["true", "false", " "]),
-    #         ),
-    #         "": (
-    #             self.utils.pick_header(synonyms.APPOINTMENT_NOTES_HEADERS),
-    #             lambda: self.utils.pick_random([self.fake.text(max_nb_chars=50), " "]),
-    #         ),
-    #         "": (
-    #             self.utils.pick_header(synonyms.SHOW_NOTES_ON_REGISTER_HEADERS),
-    #             lambda: self.utils.pick_random(["true", "false", " "]),
-    #         ),
-    #         # "": (self.utils.pick_header(synonyms.ENTITY_REFERENCE_HEADERS), lambda: self.),
-    #         # appointments.appointmentTypeIds #mandatory
-    #         # appointments.jobTitle
-    #         # appointments.appointmentGroupId
-    #         # appointments.appointmentLevel
-    #         # appointments.appointmentStatusId #mandatory
-    #         # appointments.appointmentReminderDate
-    #         # appointments.alternateToEntityId #Conditionally mandatory for alternate positions.
-    #         # appointments.eventDate
-    #         # trackingStatus.trackingStatusId
-    #         # trackingStatus.assignedToId
-    #         # trackingStatus.reminderDate
-    #         # trackingStatus.trackingNotes
-    #         # workflowStatus.workflowCode
-    #     }
-    #
-    def addresses(self) -> Dict:
-        header = self.header.address()
-        body = self.body.address()
-        data = {
-            "A": (header["address_reference_number"], body["address_reference_number"]),
-            "B": (header["street_address"], body["street_address"]),  # mandatory
-            "C": (header["secondary_address"], body["secondary_address"]),
-            "D": (header["third_address"], body["third_address"]),
-            "E": (header["town_city"], body["town_city"]),  # mandatory
-            "F": (header["area"], body["area"]),
-            "G": (header["country_code"], body["country_code"]),  # mandatory
-            "H": (header["postcode"], body["postcode"]),  # mandatory
-            "I": (header["latitude"], body["latitude"]),
-            "J": (header["longitude"], body["longitude"]),
-            "K": (header["is_global"], body["is_global"]),
-            "L": (header["additional_info"], body["additional_info"]),
-            "M": (header["address_type"], body["address_type"]),
-        }
-        return data
-
-    def individuals(self) -> Dict:
-        header = self.header.individual()
-        body = self.body.individual()
-        data = {
-            "A": (header["first_name"], body["first_name"]),  # mandatory
-            "B": (header["last_name"], body["last_name"]),  # mandatory
-            "C": (header["display_as"], body["display_as"]),  # mandatory
-            "D": (header["entity_reference"], body["entity_reference"]),
-            "E": (header["title"], body["title"]),
-            "F": (header["salutation"], body["salutation"]),
-            "G": (header["honours"], body["honours"]),
-            "H": (header["occupation"], body["occupation"]),
-            "I": (header["nationality"], body["nationality"]),
-            "J": (header["date_of_birth"], body["date_of_birth"]),
-            "K": (header["date_of_death"], body["date_of_death"]),
-            "L": (header["nationality_identification"], body["nationality_identification"]),
-            "M": (header["passport_number"], body["passport_number"]),
-            "N": (header["country_code"], body["country_code"]),
-            "O": (header["area"], body["area"]),
-            "P": (header["previous_name"], body["previous_name"]),
-            "Q": (header["security_group"], body["security_group"]),
-            "R": (header["file_reference"], body["file_reference"]),
-            "S": (header["partner_id"], body["partner_id"]),
-            "T": (header["managed_by"], body["managed_by"]),
-            "U": (header["is_historic"], body["is_historic"]),
-            # connected addresses
-            "V": (header["individual_address1"], body["individual_address1"]),  # mandatory
-            "W": (header["individual_address2"], body["individual_address2"]),
-            "X": (header["individual_city"], body["individual_city"]),  # mandatory
-            "Y": (header["individual_postcode"], body["individual_postcode"]),  # mandatory
-        }
-        return data
-
-
-    #TODO notes
-    #create records(quantity)
-    #save records done
-
-    #current data should be a dict no? so i can CURRENT_DATA["Individuals"]["first_name"] smt like that
-
-
-    #fill wave1(company, address, individual) sheets with records
-    #fill wave2(new addresses) sheets with records
-    #fill wave3(appointment) sheets with records
-
-    def create_and_save_sheet_data(self) -> List:
-
-        action_items = [
-            ("Company Data", self.company_data(), self.config.number_of_companies),
-            ("New Addresses", self.addresses(), self.config.number_of_addresses),
-            ("Individuals", self.individuals(), self.config.number_of_individuals),
-            ]
-
-        self.CURRENT_DATA.append(action_items)
-        return action_items
 
     def fill_all_sheets(self) -> None:
-
         self.create_and_save_sheet_data()
+        if not self.CURRENT_DATA:
+            raise ValueError("No sheet data was created, CURRENT_DATA is empty")
 
-        if self.CURRENT_DATA:
-            for sheet, data, quantity in self.CURRENT_DATA:
-                self.utils.fill_sheet(data, self.workbook[sheet], quantity)
-        else:
-            raise ValueError("Data has not been created, or well idk, current data is empty")
+        for data in self.CURRENT_DATA.values():
+            self.utils.write_records(
+                self.workbook[data["sheet"]],
+                data["columns"],
+                data["headers"],
+                data["records"],
+            )

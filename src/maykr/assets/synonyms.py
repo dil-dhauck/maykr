@@ -130,9 +130,7 @@ DATE_OF_DISSOLVED_HEADERS = [
 #These are client examples, but from the "appointments" sheet
 EVENT_DATE_HEADERS = [
     "Event Date",
-    "Appointment Date",
     "Effective Date",
-    "Date Appointed",
 ]
 
 #These are NOT client examples, couldnt find any.
@@ -146,6 +144,11 @@ IS_HISTORIC = [
 ]
 
 #appointments
+
+APPOINTMENT_DATE_HEADERS = [
+    "Appointment Date",
+    "Date Appointed"
+]
 
 BOARD_MEETING_DATE_HEADERS = [
     "Board Date",
@@ -396,7 +399,96 @@ ENTITY_REFERENCE_HEADERS = [
     "Reference Code",
 ]
 
-#event date exists
+APPOINTMENT_TYPE_ID_HEADERS = [
+    "Position",
+    "Position Code",
+    "Role",
+    "Title",
+    "Office Held",
+    "Officer Position"
+]
+
+JOB_TITLE_HEADERS = [
+    "Job Title",
+    "Officer Occupation",
+    "Role Title"
+]
+
+APPOINTMENT_GROUP_ID_HEADERS = [
+    "Officer Group",
+    "Role Group",
+    "Board Group"
+]
+
+APPOINTMENT_LEVEL_HEADERS = [
+    "Sequence",
+    "Order",
+    "Sort Order",
+    "Level"
+]
+
+APPOINTMENT_STATUS_ID_HEADERS = [
+    "Officer Status",
+    "Appointment Status",
+    "Director Status"
+]
+
+APPOINTMENT_REMINDER_DATE_HEADERS = [
+    "Reminder Date"
+]
+
+ALTERNATE_TO_ENTITY_ID_HEADERS = [
+    "Alternate To",
+    "Alternate For",
+    "Proxy For",
+    "Substitute For"
+]
+
+TRACKING_STATUS_ID_HEADERS = [
+    "Status",
+    "Tracking Status",
+    "Progress"
+]
+
+ASSIGNED_TO_HEADERS = [
+    "Assigned To",
+    "Owner",
+    "Responsible"
+]
+
+TRACKING_STATUS_REMINDER_DATE_HEADERS = [
+    "Reminder",
+    "Follow-up Date"
+]
+
+TRACKING_NOTES_HEADERS = [
+    "Tracking Notes",
+    "Status Notes"
+]
+
+WORKFLOW_CODE_HEADERS = [
+    "Workflow",
+    "Approval Workflow"
+]
+
+WORKFLOW_STAGE_HEADERS = [
+    "Stage",
+    "Approval Stage"
+]
+
+ASSIGNED_TO_ID_HEADERS = [
+    "Approver",
+    "Reviewer",
+    "Assignee"
+]
+
+DUE_DATE_HEADERS_HEADERS = [
+    "Due Date",
+    "Deadline"
+]
+
+
+#event date already exists
 
 TITLE_HEADERS = [
     "Title",
